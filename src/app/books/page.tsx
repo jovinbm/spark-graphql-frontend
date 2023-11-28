@@ -2,6 +2,7 @@
 import { BookOpenIcon } from '@heroicons/react/20/solid';
 import React from 'react';
 import Link from 'next/link';
+import { gql, useQuery } from '@apollo/client';
 
 const useBooks = () => {
   const [data, setData] = React.useState<
@@ -13,13 +14,23 @@ const useBooks = () => {
     }[]
   >([]);
 
-  React.useEffect(() => {
-    fetch('http://localhost:3000/api/data/books')
-      .then((response) => response.json())
-      .then((response) => {
-        setData(response);
-      });
-  }, []);
+  useQuery(
+    gql`
+      query GetBooks {
+        books {
+          id
+          name
+          description
+          url
+        }
+      }
+    `,
+    {
+      onCompleted: (result) => {
+        setData(result.books);
+      },
+    }
+  );
 
   return {
     data,
