@@ -1,27 +1,44 @@
 {
-  "name": "frontend",
-  "version": "0.1.0",
+  "name": "spark-graphql-frontend",
+  "version": "0.0.0",
   "private": true,
+  "description": "A frontend for BU Spark GraphQL Tech Talk",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/equityquotient/spark-graphql-frontend.git"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "prettier:lint": "prettier --check --ignore-path .prettierignore \"**/*.{js,jsx,json,html,md,ts,tsx,css,sass,scss,yml,yaml}\"",
+    "prettier:fix": "prettier --write --ignore-path .prettierignore \"**/*.{js,jsx,json,html,md,ts,tsx,css,sass,scss,yml,yaml}\"",
+    "ts:check": "tsc --noEmit",
+    "lint": "yarn ts:check && next lint --fix && yarn prettier:fix",
+    "prepare": "is-ci || husky install",
+    "postinstall": "yarn prepare"
   },
   "dependencies": {
+    "next": "14.0.3",
     "react": "^18",
-    "react-dom": "^18",
-    "next": "14.0.3"
+    "react-dom": "^18"
   },
   "devDependencies": {
-    "typescript": "^5",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "@typescript-eslint/eslint-plugin": "^6.13.0",
+    "@typescript-eslint/parser": "^6.13.0",
     "autoprefixer": "^10.0.1",
+    "eslint": "^8.54.0",
+    "eslint-config-alloy": "^5.1.2",
+    "eslint-config-next": "14.0.3",
+    "eslint-plugin-react": "^7.33.2",
+    "husky": "^8.0.0",
+    "is-ci": "^3.0.1",
     "postcss": "^8",
+    "prettier": "^2.8.8",
     "tailwindcss": "^3.3.0",
-    "eslint": "^8",
-    "eslint-config-next": "14.0.3"
+    "typescript": "^5.3.2"
   }
 }
