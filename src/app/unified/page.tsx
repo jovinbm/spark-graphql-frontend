@@ -37,9 +37,9 @@ const useData = () => {
           name
           description
           url
-          author
-          publisher
-          genre
+          authors
+          publishers
+          genres
         }
         authors {
           id
@@ -63,13 +63,13 @@ const useData = () => {
           result.books.map((book: any) => {
             return {
               ...book,
-              authors: book.author.map((id: any) =>
+              authors: book.authors.map((id: any) =>
                 result.authors.find((author: any) => author.id === id)
               ),
-              publishers: book.publisher.map((id: any) =>
+              publishers: book.publishers.map((id: any) =>
                 result.publishers.find((publisher: any) => publisher.id === id)
               ),
-              genres: book.genre.map((id: any) =>
+              genres: book.genres.map((id: any) =>
                 result.genres.find((genre: any) => genre.id === id)
               ),
             };
