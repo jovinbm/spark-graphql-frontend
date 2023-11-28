@@ -8,9 +8,9 @@
     "url": "https://github.com/equityquotient/spark-graphql-frontend.git"
   },
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev -p 8080",
+    "start": "next start -p 8080",
     "build": "next build",
-    "start": "next start",
     "prettier:lint": "prettier --check --ignore-path .prettierignore \"**/*.{js,jsx,json,html,md,ts,tsx,css,sass,scss,yml,yaml}\"",
     "prettier:fix": "prettier --write --ignore-path .prettierignore \"**/*.{js,jsx,json,html,md,ts,tsx,css,sass,scss,yml,yaml}\"",
     "ts:check": "tsc --noEmit",
