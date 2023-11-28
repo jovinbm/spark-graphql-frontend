@@ -43,10 +43,10 @@ export const Header = () => {
         </div>
         <div className="flex flex-1 justify-end">
           <Link
-            href="/books"
+            href="https://www.bu.edu/spark/"
             className="text-sm font-semibold leading-6 text-gray-900"
           >
-            Books <span aria-hidden="true">&rarr;</span>
+            BU Spark <span aria-hidden="true">&rarr;</span>
           </Link>
         </div>
       </nav>
