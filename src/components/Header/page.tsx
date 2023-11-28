@@ -1,11 +1,11 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
-const navigation = [
-  { name: 'Authors', href: '/authors' },
-  { name: 'Books', href: '/books' },
-  { name: 'Publishers', href: '/publishers' },
-  { name: 'Genres', href: '/genres' },
+const navigation: { name: string; href: string }[] = [
+  // { name: 'Authors', href: '/authors' },
+  // { name: 'Books', href: '/books' },
+  // { name: 'Publishers', href: '/publishers' },
+  // { name: 'Genres', href: '/genres' },
 ];
 
 export const Header = () => {
@@ -44,11 +44,10 @@ export const Header = () => {
         </div>
         <div className="flex flex-1 justify-end">
           <Link
-            href="https://www.bu.edu/spark/"
-            target="_blank"
+            href="/books"
             className="text-sm font-semibold leading-6 text-gray-900"
           >
-            BU Spark <span aria-hidden="true">&rarr;</span>
+            Books <span aria-hidden="true">&rarr;</span>
           </Link>
         </div>
       </nav>
