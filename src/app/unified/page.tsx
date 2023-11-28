@@ -1,6 +1,5 @@
 'use client';
 import { BookOpenIcon } from '@heroicons/react/20/solid';
-import { faker } from '@faker-js/faker';
 import React from 'react';
 import Link from 'next/link';
 
@@ -30,55 +29,37 @@ const useData = () => {
   >([]);
 
   React.useEffect(() => {
-    setData(
-      new Array(5).fill(0).map(() => {
-        return {
-          id: faker.number.int(),
-          name: faker.lorem.sentence(),
-          description: faker.lorem.paragraph(),
-          url: faker.internet.url(),
-          authors: new Array(faker.number.int({ min: 1, max: 2 }))
-            .fill(0)
-            .map(() => {
-              return {
-                id: faker.number.int(),
-                name: faker.person.fullName(),
-                bio: faker.lorem.paragraph(),
-                url: faker.internet.url(),
-              };
-            }),
-          publishers: new Array(faker.number.int({ min: 1, max: 2 }))
-            .fill(0)
-            .map(() => {
-              return {
-                id: faker.number.int(),
-                name: faker.company.name(),
-                url: faker.internet.url(),
-              };
-            }),
-          genres: faker.helpers
-            .arrayElements(
-              [
-                'Action',
-                'Thriller',
-                'Mystery',
-                'Horror',
-                'Romance',
-                'Legal',
-                'Documentary',
-                'Science Fiction',
-              ],
-              { min: 2, max: 4 }
-            )
-            .map((genre) => {
-              return {
-                id: faker.number.int(),
-                name: genre,
-              };
-            }),
-        };
-      })
-    );
+    Promise.all([
+      fetch('http://localhost:3000/api/data/books')
+        .then((response) => response.json())
+        .then((response) => response.data),
+      fetch('http://localhost:3000/api/data/authors')
+        .then((response) => response.json())
+        .then((response) => response.data),
+      fetch('http://localhost:3000/api/data/publishers')
+        .then((response) => response.json())
+        .then((response) => response.data),
+      fetch('http://localhost:3000/api/data/genres')
+        .then((response) => response.json())
+        .then((response) => response.data),
+    ]).then(([books, authors, publishers, genres]) => {
+      setData(
+        books.map((book: any) => {
+          return {
+            ...book,
+            authors: book.author.map((id: any) =>
+              authors.find((author: any) => author.id === id)
+            ),
+            publishers: book.publisher.map((id: any) =>
+              publishers.find((publisher: any) => publisher.id === id)
+            ),
+            genres: book.genre.map((id: any) =>
+              genres.find((genre: any) => genre.id === id)
+            ),
+          };
+        })
+      );
+    });
   }, []);
 
   return {
