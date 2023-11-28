@@ -1,8 +1,18 @@
+import Image from 'next/image';
+
 export default function Page() {
   return (
     <div className="bg-white">
-      <div className="relative isolate px-6 pt-14 lg:px-8">
+      <div className="relative isolate pt-14 px-8">
         <div className="mx-auto max-w-2xl py-56">
+          <Image
+            width={255}
+            height={255}
+            className="h-40 w-auto m-auto mb-6"
+            src="/logo.png"
+            alt="BU Spark logo"
+          />
+
           <div className="text-center">
             <h1 className="font-bold tracking-tight text-gray-900 text-6xl">
               GraphQL Mastery: Building APIs
