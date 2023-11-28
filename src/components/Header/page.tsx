@@ -2,10 +2,9 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 const navigation: { name: string; href: string }[] = [
-  // { name: 'Authors', href: '/authors' },
-  // { name: 'Books', href: '/books' },
-  // { name: 'Publishers', href: '/publishers' },
-  // { name: 'Genres', href: '/genres' },
+  { name: 'Authors', href: '/authors' },
+  { name: 'Books', href: '/books' },
+  { name: 'Publishers', href: '/publishers' },
 ];
 
 export const Header = () => {
