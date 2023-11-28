@@ -16,7 +16,7 @@ const usePublishers = () => {
     fetch('http://localhost:3000/api/data/publishers')
       .then((response) => response.json())
       .then((response) => {
-        setData(response.data);
+        setData(response);
       });
   }, []);
 

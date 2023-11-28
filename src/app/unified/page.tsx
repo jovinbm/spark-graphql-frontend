@@ -30,18 +30,18 @@ const useData = () => {
 
   React.useEffect(() => {
     Promise.all([
-      fetch('http://localhost:3000/api/data/books')
-        .then((response) => response.json())
-        .then((response) => response.data),
-      fetch('http://localhost:3000/api/data/authors')
-        .then((response) => response.json())
-        .then((response) => response.data),
-      fetch('http://localhost:3000/api/data/publishers')
-        .then((response) => response.json())
-        .then((response) => response.data),
-      fetch('http://localhost:3000/api/data/genres')
-        .then((response) => response.json())
-        .then((response) => response.data),
+      fetch('http://localhost:3000/api/data/books').then((response) =>
+        response.json()
+      ),
+      fetch('http://localhost:3000/api/data/authors').then((response) =>
+        response.json()
+      ),
+      fetch('http://localhost:3000/api/data/publishers').then((response) =>
+        response.json()
+      ),
+      fetch('http://localhost:3000/api/data/genres').then((response) =>
+        response.json()
+      ),
     ]).then(([books, authors, publishers, genres]) => {
       setData(
         books.map((book: any) => {

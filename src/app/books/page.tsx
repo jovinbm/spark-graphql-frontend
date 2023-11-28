@@ -17,7 +17,7 @@ const useBooks = () => {
     fetch('http://localhost:3000/api/data/books')
       .then((response) => response.json())
       .then((response) => {
-        setData(response.data);
+        setData(response);
       });
   }, []);
 
