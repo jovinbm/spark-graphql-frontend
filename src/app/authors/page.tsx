@@ -2,6 +2,7 @@
 import { UserIcon } from '@heroicons/react/20/solid';
 import { faker } from '@faker-js/faker';
 import React from 'react';
+import Link from 'next/link';
 
 const useAuthors = () => {
   const [data, setData] = React.useState<
@@ -9,6 +10,7 @@ const useAuthors = () => {
       id: number;
       name: string;
       bio: string;
+      url: string;
     }[]
   >([]);
 
@@ -19,6 +21,7 @@ const useAuthors = () => {
           id: faker.number.int(),
           name: faker.person.fullName(),
           bio: faker.lorem.paragraph(),
+          url: faker.internet.url(),
         };
       })
     );
@@ -54,7 +57,13 @@ export default function Page() {
                     className="absolute left-0 top-1 h-5 w-5 text-indigo-500"
                     aria-hidden="true"
                   />
-                  {author.name}
+                  <Link
+                    href={author.url}
+                    target="_blank"
+                    className="text-indigo-600 hover:underline"
+                  >
+                    {author.name}
+                  </Link>
                 </dt>
                 <dd className="mt-2">{author.bio}</dd>
               </div>

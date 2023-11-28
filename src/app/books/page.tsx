@@ -2,6 +2,7 @@
 import { BookOpenIcon } from '@heroicons/react/20/solid';
 import { faker } from '@faker-js/faker';
 import React from 'react';
+import Link from 'next/link';
 
 const useBooks = () => {
   const [data, setData] = React.useState<
@@ -9,6 +10,7 @@ const useBooks = () => {
       id: number;
       name: string;
       description: string;
+      url: string;
     }[]
   >([]);
 
@@ -19,6 +21,7 @@ const useBooks = () => {
           id: faker.number.int(),
           name: faker.lorem.sentence(),
           description: faker.lorem.paragraph(),
+          url: faker.internet.url(),
         };
       })
     );
@@ -43,7 +46,7 @@ export default function Page() {
             <p className="mt-6 text-base leading-7 text-gray-600">
               These books have had a profound impact on literature and have
               garnered widespread acclaim. They are some of the most influential
-              and celebrated books across different genres and time periods:
+              and celebrated books across different genres and time periods.
             </p>
           </div>
           <dl className="col-span-2 grid grid-cols-1 gap-x-8 gap-y-10 text-base leading-7 text-gray-600 sm:grid-cols-2 lg:gap-y-16">
@@ -54,7 +57,13 @@ export default function Page() {
                     className="absolute left-0 top-1 h-5 w-5 text-indigo-500"
                     aria-hidden="true"
                   />
-                  {book.name}
+                  <Link
+                    href={book.url}
+                    target="_blank"
+                    className="text-indigo-600 hover:underline"
+                  >
+                    {book.name}
+                  </Link>
                 </dt>
                 <dd className="mt-2">{book.description}</dd>
               </div>

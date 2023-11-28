@@ -2,12 +2,14 @@
 import { HomeModernIcon } from '@heroicons/react/20/solid';
 import { faker } from '@faker-js/faker';
 import React from 'react';
+import Link from 'next/link';
 
 const usePublishers = () => {
   const [data, setData] = React.useState<
     {
       id: number;
       name: string;
+      url: string;
     }[]
   >([]);
 
@@ -17,6 +19,7 @@ const usePublishers = () => {
         return {
           id: faker.number.int(),
           name: faker.company.name(),
+          url: faker.internet.url(),
         };
       })
     );
@@ -52,7 +55,13 @@ export default function Page() {
                     className="absolute left-0 top-1 h-5 w-5 text-indigo-500"
                     aria-hidden="true"
                   />
-                  {publisher.name}
+                  <Link
+                    href={publisher.url}
+                    target="_blank"
+                    className="text-indigo-600 hover:underline"
+                  >
+                    {publisher.name}
+                  </Link>
                 </dt>
               </div>
             ))}
