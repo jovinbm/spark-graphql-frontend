@@ -47,13 +47,13 @@ const useData = () => {
         books.map((book: any) => {
           return {
             ...book,
-            authors: book.author.map((id: any) =>
+            authors: book.authors.map((id: any) =>
               authors.find((author: any) => author.id === id)
             ),
-            publishers: book.publisher.map((id: any) =>
+            publishers: book.publishers.map((id: any) =>
               publishers.find((publisher: any) => publisher.id === id)
             ),
-            genres: book.genre.map((id: any) =>
+            genres: book.genres.map((id: any) =>
               genres.find((genre: any) => genre.id === id)
             ),
           };
