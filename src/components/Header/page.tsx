@@ -48,6 +48,7 @@ export const Header = () => {
         <div className="flex flex-1 justify-end">
           <Link
             href="https://www.bu.edu/spark/"
+            target="_blank"
             className="text-sm font-semibold leading-6 text-gray-900"
           >
             BU Spark <span aria-hidden="true">&rarr;</span>
