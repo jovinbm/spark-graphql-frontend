@@ -3,6 +3,7 @@ import { Inter } from 'next/font/google';
 import './globals.css';
 import clsx from 'clsx';
 import { Header } from '@/components/Header/page';
+import { GraphqlWrapper } from '@/app/graphql';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -18,8 +19,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={clsx(inter.className, 'bg-white')}>
-        <Header />
-        {children}
+        <GraphqlWrapper>
+          <Header />
+          {children}
+        </GraphqlWrapper>
       </body>
     </html>
   );

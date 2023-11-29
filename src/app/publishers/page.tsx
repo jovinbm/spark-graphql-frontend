@@ -2,6 +2,7 @@
 import { HomeModernIcon } from '@heroicons/react/20/solid';
 import React from 'react';
 import Link from 'next/link';
+import { gql, useQuery } from '@apollo/client';
 
 const usePublishers = () => {
   const [data, setData] = React.useState<
@@ -12,13 +13,22 @@ const usePublishers = () => {
     }[]
   >([]);
 
-  React.useEffect(() => {
-    fetch('http://localhost:3000/api/data/publishers')
-      .then((response) => response.json())
-      .then((response) => {
-        setData(response);
-      });
-  }, []);
+  useQuery(
+    gql`
+      query GetPublishers {
+        publishers {
+          id
+          name
+          url
+        }
+      }
+    `,
+    {
+      onCompleted: (result) => {
+        setData(result.publishers);
+      },
+    }
+  );
 
   return {
     data,

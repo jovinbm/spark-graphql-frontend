@@ -2,6 +2,7 @@
 import { UserIcon } from '@heroicons/react/20/solid';
 import React from 'react';
 import Link from 'next/link';
+import { useQuery, gql } from '@apollo/client';
 
 const useAuthors = () => {
   const [data, setData] = React.useState<
@@ -13,13 +14,23 @@ const useAuthors = () => {
     }[]
   >([]);
 
-  React.useEffect(() => {
-    fetch('http://localhost:3000/api/data/authors')
-      .then((response) => response.json())
-      .then((response) => {
-        setData(response);
-      });
-  }, []);
+  useQuery(
+    gql`
+      query GetAuthors {
+        authors {
+          id
+          name
+          bio
+          url
+        }
+      }
+    `,
+    {
+      onCompleted: (result) => {
+        setData(result.authors);
+      },
+    }
+  );
 
   return {
     data,

@@ -2,6 +2,7 @@
 import { BookOpenIcon } from '@heroicons/react/20/solid';
 import React from 'react';
 import Link from 'next/link';
+import { gql, useQuery } from '@apollo/client';
 
 const useData = () => {
   const [data, setData] = React.useState<
@@ -28,39 +29,55 @@ const useData = () => {
     }[]
   >([]);
 
-  React.useEffect(() => {
-    Promise.all([
-      fetch('http://localhost:3000/api/data/books').then((response) =>
-        response.json()
-      ),
-      fetch('http://localhost:3000/api/data/authors').then((response) =>
-        response.json()
-      ),
-      fetch('http://localhost:3000/api/data/publishers').then((response) =>
-        response.json()
-      ),
-      fetch('http://localhost:3000/api/data/genres').then((response) =>
-        response.json()
-      ),
-    ]).then(([books, authors, publishers, genres]) => {
-      setData(
-        books.map((book: any) => {
-          return {
-            ...book,
-            authors: book.authors.map((id: any) =>
-              authors.find((author: any) => author.id === id)
-            ),
-            publishers: book.publishers.map((id: any) =>
-              publishers.find((publisher: any) => publisher.id === id)
-            ),
-            genres: book.genres.map((id: any) =>
-              genres.find((genre: any) => genre.id === id)
-            ),
-          };
-        })
-      );
-    });
-  }, []);
+  useQuery(
+    gql`
+      query GetUnified {
+        books {
+          id
+          name
+          description
+          url
+          authors
+          publishers
+          genres
+        }
+        authors {
+          id
+          name
+          url
+        }
+        publishers {
+          id
+          name
+          url
+        }
+        genres {
+          id
+          name
+        }
+      }
+    `,
+    {
+      onCompleted: (result) => {
+        setData(
+          result.books.map((book: any) => {
+            return {
+              ...book,
+              authors: book.authors.map((id: any) =>
+                result.authors.find((author: any) => author.id === id)
+              ),
+              publishers: book.publishers.map((id: any) =>
+                result.publishers.find((publisher: any) => publisher.id === id)
+              ),
+              genres: book.genres.map((id: any) =>
+                result.genres.find((genre: any) => genre.id === id)
+              ),
+            };
+          })
+        );
+      },
+    }
+  );
 
   return {
     data,
