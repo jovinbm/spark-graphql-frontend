@@ -37,44 +37,26 @@ const useData = () => {
           name
           description
           url
-          authors
-          publishers
-          genres
-        }
-        authors {
-          id
-          name
-          url
-        }
-        publishers {
-          id
-          name
-          url
-        }
-        genres {
-          id
-          name
+          authors {
+            id
+            name
+            url
+          }
+          publishers {
+            id
+            name
+            url
+          }
+          genres {
+            id
+            name
+          }
         }
       }
     `,
     {
       onCompleted: (result) => {
-        setData(
-          result.books.map((book: any) => {
-            return {
-              ...book,
-              authors: book.authors.map((id: any) =>
-                result.authors.find((author: any) => author.id === id)
-              ),
-              publishers: book.publishers.map((id: any) =>
-                result.publishers.find((publisher: any) => publisher.id === id)
-              ),
-              genres: book.genres.map((id: any) =>
-                result.genres.find((genre: any) => genre.id === id)
-              ),
-            };
-          })
-        );
+        setData(result.books);
       },
     }
   );
