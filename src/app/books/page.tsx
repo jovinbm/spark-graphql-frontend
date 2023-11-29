@@ -1,6 +1,5 @@
 'use client';
 import { BookOpenIcon } from '@heroicons/react/20/solid';
-import { faker } from '@faker-js/faker';
 import React from 'react';
 import Link from 'next/link';
 
@@ -15,16 +14,11 @@ const useBooks = () => {
   >([]);
 
   React.useEffect(() => {
-    setData(
-      new Array(5).fill(0).map(() => {
-        return {
-          id: faker.number.int(),
-          name: faker.lorem.sentence(),
-          description: faker.lorem.paragraph(),
-          url: faker.internet.url(),
-        };
-      })
-    );
+    fetch('http://localhost:3000/api/data/books')
+      .then((response) => response.json())
+      .then((response) => {
+        setData(response);
+      });
   }, []);
 
   return {

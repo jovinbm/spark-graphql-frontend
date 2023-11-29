@@ -1,6 +1,5 @@
 'use client';
 import { HomeModernIcon } from '@heroicons/react/20/solid';
-import { faker } from '@faker-js/faker';
 import React from 'react';
 import Link from 'next/link';
 
@@ -14,15 +13,11 @@ const usePublishers = () => {
   >([]);
 
   React.useEffect(() => {
-    setData(
-      new Array(5).fill(0).map(() => {
-        return {
-          id: faker.number.int(),
-          name: faker.company.name(),
-          url: faker.internet.url(),
-        };
-      })
-    );
+    fetch('http://localhost:3000/api/data/publishers')
+      .then((response) => response.json())
+      .then((response) => {
+        setData(response);
+      });
   }, []);
 
   return {
