@@ -3,6 +3,7 @@ import { BookOpenIcon } from '@heroicons/react/20/solid';
 import React from 'react';
 import Link from 'next/link';
 import { gql, useQuery } from '@apollo/client';
+import Image from 'next/image';
 
 const useData = () => {
   const [data, setData] = React.useState<
@@ -11,6 +12,7 @@ const useData = () => {
       name: string;
       description: string;
       url: string;
+      image: string | undefined;
       authors: {
         id: number;
         name: string;
@@ -37,6 +39,7 @@ const useData = () => {
           name
           description
           url
+          image
           authors {
             id
             name
@@ -100,6 +103,12 @@ export default function Page() {
                   </Link>
                 </dt>
                 <dd className="mt-2 space-y-2">
+                  <Image
+                    src={book.image ?? '/logo.png'}
+                    alt="Book cover"
+                    width={150}
+                    height={150}
+                  />
                   <p>{book.description}</p>
 
                   <p>
